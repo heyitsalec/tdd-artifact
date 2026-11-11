@@ -2,6 +2,7 @@
 # - workflow-level `permissions: contents: read`; no job asks for more
 # - every action is pinned to a commit
 # - no secrets: nothing here pushes, publishes or calls a paid service
+# - no Playwright and no Postgres on the runner: the end-to-end `tdd rev` test and the database tests skip here
 name: ci
 
 on:
