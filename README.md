@@ -8,6 +8,17 @@ for subagents, a linter and an eval loop.
 The skill itself is in [`skills/tdd-artifact/`](skills/tdd-artifact/); its instructions are
 [`SKILL.md`](skills/tdd-artifact/SKILL.md).
 
+## What it looks like
+
+The shots are of a demo packet (webhook retries) and of the component gallery.
+
+| | |
+|---|---|
+| ![The page's masthead and the redesign diagram](docs/shots/01-masthead-redesign.png) The page opens on the redesign: one finding, one diagram. | ![Hovering a diagram box shows its hotspot card](docs/shots/02-diagram-hotspot.png) Every diagram box is a hotspot with a note and a link. |
+| ![The schema drawer's data preview](docs/shots/06-schema-drawer.png) A table box opens the schema drawer: sample rows, columns, measured load. | ![Open questions and decisions](docs/shots/05-decisions.png) Open questions with a recommended option; decisions in the owner's words. |
+| ![A persona box with three mocked states](docs/shots/03-front-end-persona.png) A front end per person and moment, with today's screen folded under it. | ![PR cards grouped by milestone](docs/shots/07-pr-cards.png) The PR order as cards: summary, tests, rollback. |
+| ![The component gallery in dark mode](docs/shots/08-component-gallery-dark.png) `tdd components --gallery` shows every block beside its markdown. Dark mode follows the viewer. | ![The page at phone width](docs/shots/09-phone-width.png) The same page at phone width. |
+
 ## Install
 
 **With the agentic-workflow toolkit.** The toolkit's `setup.sh` fetches external skill packs at a pinned commit into
