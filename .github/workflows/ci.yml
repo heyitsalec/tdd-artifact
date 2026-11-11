@@ -1,0 +1,64 @@
+# CI for the tdd-artifact skill pack.
+# - workflow-level `permissions: contents: read`; no job asks for more
+# - every action is pinned to a commit
+# - no secrets: nothing here pushes, publishes or calls a paid service
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: skills/tdd-artifact
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # The kernel in cli/src/py reproduces CPython 3.13; on any other python3 the golden suites skip.
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.13"
+
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version: "1.4.4"
+
+      - name: Install
+        run: |
+          (cd cli && bun install --frozen-lockfile)
+          (cd app && bun install --frozen-lockfile)
+
+      - name: Typecheck
+        run: |
+          (cd cli && bun run check)
+          (cd app && bunx tsc -p . --noEmit)
+
+      - name: Test
+        run: |
+          # The golden suites skip on any python3 that is not 3.13; here that is a failure, not a skip.
+          python3 -I -c 'import sys; v = sys.version_info[:2]; sys.exit(0 if v == (3, 13) else "python3 is %d.%d, not 3.13" % v)'
+          cd cli
+          bun test
+
+      - name: Gallery packet, both compilers, hydrate
+        run: |
+          G="$RUNNER_TEMP/gallery"
+          (cd cli && bun bin/tdd.ts components --gallery "$G")
+          python3 -I -W error scripts/build_tdd.py "$G/gallery.md" "$G/build"
+          (cd cli && bun run parity/gate.ts "$G")
+          (cd app && bun run build.ts "$G/build" && bun run check_hydrate.ts "$G/build/tdd.html")

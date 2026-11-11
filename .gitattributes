@@ -1,0 +1,5 @@
+# Generated or vendored files: collapsed in diffs and left out of language statistics.
+skills/tdd-artifact/cli/src/py/ucd.ts          linguist-generated=true
+skills/tdd-artifact/cli/bun.lock               linguist-generated=true
+skills/tdd-artifact/app/bun.lock               linguist-generated=true
+skills/tdd-artifact/vendor/**                  linguist-vendored=true
