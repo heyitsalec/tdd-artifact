@@ -1,5 +1,5 @@
 ---
-name: tdd
+name: tdd-artifact
 description: "Write a technical design document (TDD) in the house template: a markdown source compiled to content.json and rendered by a React app into one claude.ai HTML artifact (the source of truth), with mocks from the project's real components, tldraw diagrams with hover hotspots, a schema lane with sample rows and measured load, an agents/ lane for subagents, a linter, one living status doc, and owner decisions recorded one at a time. Use for 'write a TDD', 'technical design doc', 'design doc for <ticket>', 'rebuild this TDD in the house template'. Not a bug investigation or a PR review."
 argument-hint: "<slug> [--title T] [--ticket P-XXX-NNN] [--repo <path>]"
 allowed-tools: Bash(T=*), Bash(S=*), Bash(SD=*), Bash(SHARED_DIR=*), Bash(source *), Bash(git *), Bash(python3 *), Bash(node *), Bash(bun *), Bash(cd *), Read, Write, Edit, Glob, Grep, Skill, AskUserQuestion, Agent
@@ -13,12 +13,12 @@ allowed-tools: Bash(T=*), Bash(S=*), Bash(SD=*), Bash(SHARED_DIR=*), Bash(source
 One run turns a ticket into a **packet**: `<slug>.md` (the editable source), `meta.json`, diagrams, mocks, PR deep dives, schema cards, one `status.md`, and the built page `build/tdd.html`, published as a private claude.ai artifact. **The published artifact is the source of truth**; Notion mirrors it. This skill sits beside `system-design` (D1 of the tdd-system packet) and uses system-design's scripts for drawing, checking and the repo slug, from its own copy in `vendor/system-design/`; it never edits `skills/system-design`.
 
 ```bash
-T="${AW_TOOLKIT:-$HOME/.agentic-workflow/toolkit}/skills/tdd"   # this skill's folder
+T="${AW_TOOLKIT:-$HOME/.agentic-workflow/toolkit}/skills/tdd-artifact"   # this skill's folder
 S="${SYSTEM_DESIGN_SKILL:-$T/vendor/system-design}"              # the system-design scripts the skill resolves (see sd_root in scripts/build_tdd.py)
 SD="<the packet path new_packet.py printed>"     # shell state does not persist: repeat these lines in every block
 ```
 
-`T` is this skill's folder. If that path does not exist (the skill was linked into a provider's skills dir without the toolkit, for example a symlink at `~/.claude/skills/tdd`), set `T` to the folder that holds this SKILL.md. `S` is the system-design scripts the skill resolves (see `sd_root` in `scripts/build_tdd.py`): `$SYSTEM_DESIGN_SKILL` when it is set, else the copy in `vendor/system-design/` (its README says where it came from). The repo's own `skills/system-design` is a different variant (no `build_doc.py`, `artifact_check.mjs`, `doctor.sh` or `svg_to_png.mjs`, and its `draw_diagrams.mjs` draws dark by default), so never point `S` at it.
+`T` is this skill's folder. If that path does not exist (the skill was linked into a provider's skills dir without the toolkit, for example a symlink at `~/.claude/skills/tdd-artifact`), set `T` to the folder that holds this SKILL.md. `S` is the system-design scripts the skill resolves (see `sd_root` in `scripts/build_tdd.py`): `$SYSTEM_DESIGN_SKILL` when it is set, else the copy in `vendor/system-design/` (its README says where it came from). The repo's own `skills/system-design` is a different variant (no `build_doc.py`, `artifact_check.mjs`, `doctor.sh` or `svg_to_png.mjs`, and its `draw_diagrams.mjs` draws dark by default), so never point `S` at it.
 
 Every run ends with the [Result block](#result-block), whatever the outcome: done, stopped, failed, refused or a question back to the person. Run its gate now, before the first step, so you know `AW_RESULT` before anything else. Under `AW_RESULT=1` your final reply opens with the `aw-result` block; the result file never stands in for it.
 

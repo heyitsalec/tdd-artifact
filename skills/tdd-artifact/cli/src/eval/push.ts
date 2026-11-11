@@ -34,7 +34,7 @@ export const push = (run: Run, keys: Pick<Keys, "braintrust">) => Effect.gen(fun
   // ev_push imports braintrust inside push(): ImportError and any other failure end as "push failed: <Type>: <msg>"
   const bt: Py = yield* Effect.tryPromise({ try: () => importOptional(SPEC),
     catch: (e) => new PushFailed({ type: (e as Error)?.name ?? "Error", message: String((e as Error)?.message ?? e) }) });
-  if (!bt) return yield* new PushFailed({ type: "ModuleNotFoundError", message: `No module named '${SPEC}' (bun add --no-save braintrust in skills/tdd/cli)` });
+  if (!bt) return yield* new PushFailed({ type: "ModuleNotFoundError", message: `No module named '${SPEC}' (bun add --no-save braintrust in skills/tdd-artifact/cli)` });
   const call = <A>(f: () => Promise<A> | A) => Effect.tryPromise({
     try: async () => f(),
     catch: (e) => new PushFailed({ type: (e as Error)?.name ?? "Error", message: String((e as Error)?.message ?? e) }),

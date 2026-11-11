@@ -212,7 +212,7 @@ export interface CompilerApi {
   readonly available: () => boolean;
 }
 
-/** skills/tdd/scripts, the Python scripts' folder ($TDD_SCRIPTS overrides, for tests). */
+/** skills/tdd-artifact/scripts, the Python scripts' folder ($TDD_SCRIPTS overrides, for tests). */
 export const SCRIPTS = (): string => process.env.TDD_SCRIPTS || py.path.normpath(py.path.join(import.meta.dir, "..", "..", "..", "scripts"));
 
 /** A scoped temporary folder (tempfile.mkdtemp(prefix=...)), removed with its contents when the scope closes. */

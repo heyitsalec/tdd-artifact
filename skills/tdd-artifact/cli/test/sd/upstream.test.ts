@@ -41,7 +41,7 @@ function check(dir: string): string[] {
 
 describe("UPSTREAM.json", () => {
   test("names the vendor copy and the 372 ported lines", () => {
-    expect(UPSTREAM.source).toBe("skills/tdd/vendor/system-design/scripts");
+    expect(UPSTREAM.source).toBe("skills/tdd-artifact/vendor/system-design/scripts");
     const total = Object.values(UPSTREAM.files).flatMap((f) => f.ranges).reduce((n, r) => n + r.lines[1] - r.lines[0] + 1, 0);
     expect(total).toBe(372);
     const names = Object.values(UPSTREAM.files).flatMap((f) => f.ranges.flatMap((r) => r.names));

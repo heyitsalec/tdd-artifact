@@ -14,7 +14,7 @@ import { get } from "../py/value";
 export type Py = any; // eslint-disable-line @typescript-eslint/no-explicit-any
 export { get, pyStr, PyFloat };
 
-/** skills/tdd (ev_common.SKILL), without a trailing slash. */
+/** skills/tdd-artifact (ev_common.SKILL), without a trailing slash. */
 export const SKILL = py.path.normpath(fileURLToPath(new URL("../../../", import.meta.url)));
 export const SCRIPTS = py.path.join(SKILL, "scripts");
 export const PAGE_LIMIT = 16 * 1024 * 1024;

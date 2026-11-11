@@ -4,7 +4,7 @@
 // BRAINTRUST_API_KEY for autoevals) and on a flag (--with-judge, --with-agent-probe), exactly as in the Python, and
 // returns the ledger row with the usage the API reported, so output.tokens.json accounts for the eval's own spend.
 // The SDKs (@anthropic-ai/sdk, autoevals) are optional: imported lazily, only when a call is about to be made, and
-// never installed by this package (`bun add --no-save @anthropic-ai/sdk autoevals` in skills/tdd/cli to use them).
+// never installed by this package (`bun add --no-save @anthropic-ai/sdk autoevals` in skills/tdd-artifact/cli to use them).
 import { Effect, Option } from "effect";
 import * as py from "../py";
 import { type Py, PyFloat, fl, get, importOptional, n, now } from "./common";
@@ -77,13 +77,13 @@ export const optional = (spec: string): Effect.Effect<Py | null> => Effect.promi
 
 export const claudeAvailable = (keys: LlmKeys): Effect.Effect<[boolean, string | null]> => Effect.gen(function* () {
   if (Option.isNone(keys.anthropic)) return [false, "no ANTHROPIC_API_KEY"];
-  if (!(yield* optional(SDK))) return [false, `${SDK} not installed (bun add --no-save ${SDK} in skills/tdd/cli)`];
+  if (!(yield* optional(SDK))) return [false, `${SDK} not installed (bun add --no-save ${SDK} in skills/tdd-artifact/cli)`];
   return [true, null];
 });
 
 export const autoevalsAvailable = (keys: LlmKeys): Effect.Effect<[boolean, string | null]> => Effect.gen(function* () {
   if (Option.isNone(keys.openai) && Option.isNone(keys.braintrust)) return [false, "no OPENAI_API_KEY or BRAINTRUST_API_KEY for autoevals"];
-  if (!(yield* optional(AUTOEVALS))) return [false, `autoevals not installed (bun add --no-save autoevals in skills/tdd/cli)`];
+  if (!(yield* optional(AUTOEVALS))) return [false, `autoevals not installed (bun add --no-save autoevals in skills/tdd-artifact/cli)`];
   return [true, null];
 });
 

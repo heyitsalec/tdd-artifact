@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// tdd new: new_packet.py in TypeScript. Scaffolds <root>/<repo-slug>/system-design/<slug>/ from skills/tdd/templates
+// tdd new: new_packet.py in TypeScript. Scaffolds <root>/<repo-slug>/system-design/<slug>/ from skills/tdd-artifact/templates
 // with the same files, bytes, stdout and exit codes as the Python; TDD_TODAY (YYYY-MM-DD) pins the date in both.
 // The argparse surface is reproduced for this parser's options (exact, --opt=value, unique prefixes, --, -h); as in
 // CPython 3.13, an option never takes its value across "--".
@@ -11,7 +11,7 @@ import * as re from "../src/py/re";
 
 export const DOC = "Create a new TDD packet from the house template.\n\nUsage:\n  new_packet.py <slug> [--title T] [--ticket P-XXX-NNN] [--repo <path>] [--root <dir>]\n\nCreates <root>/<repo-slug>/system-design/<slug>/ with:\n  <slug>.md       templates/tdd-template.md, with the title, ticket, sha and date filled in\n  meta.json       templates/meta.template.json without its _doc block, filled: title (the tab title, from --title the\n                  way build_doc.page_title derives it, else from the slug), project (the ticket), Author (git user.name),\n                  updated (today), rev 1, repo_url (GitHub or GitLab origin only), sha, sha_date, repo_path\n  status.md       the one living doc: artifact_url placeholder, Reference, Surfaces, Counts, Decisions, Open\n                  questions, Lead defaults, Revisions, Tracker\n  diagrams/*.svg  templates/packet/ copied as it is: a placeholder image, marked PLACEHOLDER and REPLACE ME, for\n  mockups/*.svg   every diagram and shot the template references, so a fresh packet builds and renders; it lints\n                  with FILES/placeholder and FILES/placeholder-text errors until the author replaces each one (the\n                  \"todo:\" line lists the images)\n  prs/ diagrams/ mockups/ schema/ queries/ shots/   working folders (prs/ schema/ queries/ shots/ start empty)\n\n<root> is $SYSTEM_DESIGN_OUT, else ~/.system-design. <repo-slug> is derived the way system-design's scripts/env.sh does\nit: owner-repo from the origin remote of --repo (default: the current folder), else the repo root's folder name, else\nthe folder's own name. The sha is origin/HEAD when that ref exists, else HEAD; sha_date is its commit date. Nothing is\nfetched: run `git fetch` first if the remote default branch should be current.\n\nRefuses to write into a packet folder that already has files in it. Standard library only; run with python3 -I.\nExit 0 on success; 1 on bad arguments, an existing packet, or a missing template.";
 
-// The Python's paths: HERE is skills/tdd/scripts (named in the "next:" line), SKILL is skills/tdd.
+// The Python's paths: HERE is skills/tdd-artifact/scripts (named in the "next:" line), SKILL is skills/tdd-artifact.
 const SKILL = normpath(join(import.meta.dir, "..", ".."));
 const HERE = join(SKILL, "scripts");
 const TEMPLATE_MD = join(SKILL, "templates", "tdd-template.md");

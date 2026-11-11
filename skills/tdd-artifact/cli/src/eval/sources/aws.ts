@@ -33,7 +33,7 @@ export const query = (aws: Keys["aws"], slug: string, logGroups: string[] = [], 
     const logsMod = groups.length ? yield* optional(LOGS) : null;
     const cwMod = alarmPrefix ? yield* optional(CW) : null;
     if ((groups.length && !logsMod) || (alarmPrefix && !cwMod))
-      return { status: "not run", reason: `the AWS SDK is not installed (bun add --no-save ${LOGS} ${CW} in skills/tdd/cli)` } as Record<string, Py>;
+      return { status: "not run", reason: `the AWS SDK is not installed (bun add --no-save ${LOGS} ${CW} in skills/tdd-artifact/cli)` } as Record<string, Py>;
     if (Option.isNone(aws.accessKeyId) || Option.isNone(aws.secretAccessKey))
       return { status: "not run", reason: "no AWS credentials (AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in the environment)" } as Record<string, Py>;
     if (Option.isNone(aws.region)) return { status: "not run", reason: "no AWS region (AWS_REGION)" } as Record<string, Py>;
