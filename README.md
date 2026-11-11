@@ -78,3 +78,9 @@ which version they found; everything else still runs.
 `scripts/build_tdd.py` and `cli/src/compile` are twins. A change to one needs the same change in the other and a new
 `BUILD_TDD_SHA256` in `cli/src/compile/index.ts`; the parity gate fails until both agree. Adding a block type touches
 six places, listed in `skills/tdd-artifact/app/CONTRACTS.md`.
+
+## License
+
+[MIT](LICENSE). It covers the whole repository, the vendored system-design scripts included.
+`skills/tdd-artifact/cli/src/py/ucd.ts` holds tables generated from the Unicode Character Database (Unicode 15.1) as
+CPython 3.13 ships it; that data stays under the Unicode license.
