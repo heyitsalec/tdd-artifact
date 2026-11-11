@@ -15,6 +15,8 @@ loader (D17, D23, D24) and the revision runner.
 - `src/components/` reads the component catalog (`../templates/components.json`): `tdd components [name] [--json]` prints
   it, `tdd components --gallery <dir>` writes a packet whose page shows every component beside its markdown, and
   `test/components` keeps the catalog, both compilers and the renderer's node types in step.
+- `test/install` runs the line in SKILL.md that finds the skill's folder (`T`), in every shell on the machine, against
+  each place an install puts the skill, and checks that the docs that repeat the line carry it unchanged.
 
 Setup once: `bun install` here, and `bun install` in `../app` (the `tdd rev` tests build the page). Check:
 `bun run check`. Tests: `bun test`. The kernel's golden tests (`test/py`, `test/sd`) compare against a live `python3`

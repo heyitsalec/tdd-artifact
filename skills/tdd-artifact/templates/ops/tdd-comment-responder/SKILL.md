@@ -4,7 +4,7 @@ description: Every 15 minutes, answer activated comment threads on the watched T
 ---
 
 <!-- TEMPLATE (UNTESTED). Design: references/ops-loop.md in the tdd skill. Fill every {{TDD_SKILL}} first:
-{{TDD_SKILL}} is the folder the tdd skill is installed in: ${AW_TOOLKIT:-$HOME/.agentic-workflow/toolkit}/skills/tdd-artifact with the toolkit, or the link in a provider's skills dir for a symlink install (for example ~/.claude/skills/tdd-artifact). To install, the owner creates a
+{{TDD_SKILL}} is the folder the tdd skill is installed in, the T its SKILL.md resolves: $TDD_ARTIFACT_HOME when set, else the external skill pack under the toolkit's state folder (${AW_STATE_DIR:-$HOME/.agentic-workflow}/external-skills/tdd-artifact/skills/tdd-artifact), else the toolkit's own copy (${AW_TOOLKIT:-$HOME/.agentic-workflow/toolkit}/skills/tdd-artifact), else the link in a provider's skills dir (for example ~/.claude/skills/tdd-artifact). To install, the owner creates a
 local scheduled task on the always-on Mac (create_scheduled_task: taskId "tdd-comment-responder", cron "*/15 * * * *"
 in local time, prompt = everything below the closing of this comment). Not installed by the session that wrote it. -->
 

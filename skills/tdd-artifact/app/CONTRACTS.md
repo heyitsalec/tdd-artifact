@@ -85,7 +85,7 @@ Colours come from the theme tokens (`--fg`, `--muted`, `--surface`, `--surface-2
 
 ## Proof commands (run what applies; report the output, counts not prose)
 ```
-T="${AW_TOOLKIT:-$HOME/.agentic-workflow/toolkit}/skills/tdd-artifact"; S="${SYSTEM_DESIGN_SKILL:-$T/vendor/system-design}"   # T and S as SKILL.md sets them
+T="$(for d in "${TDD_ARTIFACT_HOME:-}" "${AW_STATE_DIR:-${AW_STATE_ROOT:-$HOME/.agentic-workflow}}/external-skills/tdd-artifact/skills/tdd-artifact" "${AW_TOOLKIT:-$HOME/.agentic-workflow/toolkit}/skills/tdd-artifact" "$HOME/.claude/skills/tdd-artifact"; do [ -f "$d/SKILL.md" ] && { printf %s "$d"; break; }; done)"; : "${T:?tdd-artifact not found: set TDD_ARTIFACT_HOME to the folder that holds its SKILL.md}"; S="${SYSTEM_DESIGN_SKILL:-$T/vendor/system-design}"   # T and S as SKILL.md sets them
 cd "$T/app" && bun install && bunx tsc -p . --noEmit                         # TypeScript 7
 bun run build.ts ~/.system-design/<org>-web-app/system-design/<slug>/build
 bun run check_hydrate.ts  <same build dir>/tdd.html                                # jsdom hydrate: zero console errors

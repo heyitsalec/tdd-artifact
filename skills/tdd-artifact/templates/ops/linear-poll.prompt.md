@@ -2,7 +2,7 @@
 minutes (cron "*/15 * * * *", local time), which has the watchlist, the packets and the state file; (b) CLOUD, the
 hourly fallback routine in linear-poll.routine.json, which has only the connectors. Set MODE below. Fill every {{...}}.
 Design: references/ops-loop.md §2.6 in the tdd skill. Linear has no webhook trigger here, so this polls.
-{{TDD_SKILL}} is the folder the tdd skill is installed in: ${AW_TOOLKIT:-$HOME/.agentic-workflow/toolkit}/skills/tdd-artifact with the toolkit, or the link in a provider's skills dir for a symlink install (for example ~/.claude/skills/tdd-artifact). -->
+{{TDD_SKILL}} is the folder the tdd skill is installed in, the T its SKILL.md resolves: $TDD_ARTIFACT_HOME when set, else the external skill pack under the toolkit's state folder (${AW_STATE_DIR:-$HOME/.agentic-workflow}/external-skills/tdd-artifact/skills/tdd-artifact), else the toolkit's own copy (${AW_TOOLKIT:-$HOME/.agentic-workflow/toolkit}/skills/tdd-artifact), else the link in a provider's skills dir (for example ~/.claude/skills/tdd-artifact). -->
 
 # TDD Linear poll
 

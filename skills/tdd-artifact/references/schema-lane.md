@@ -148,7 +148,7 @@ card on the schema diagram (hover or keyboard focus) and the top of the drawer's
 ## Proof and preview
 
 ```
-T="${AW_TOOLKIT:-$HOME/.agentic-workflow/toolkit}/skills/tdd-artifact"                  # this skill's folder, as SKILL.md sets it
+T="$(for d in "${TDD_ARTIFACT_HOME:-}" "${AW_STATE_DIR:-${AW_STATE_ROOT:-$HOME/.agentic-workflow}}/external-skills/tdd-artifact/skills/tdd-artifact" "${AW_TOOLKIT:-$HOME/.agentic-workflow/toolkit}/skills/tdd-artifact" "$HOME/.claude/skills/tdd-artifact"; do [ -f "$d/SKILL.md" ] && { printf %s "$d"; break; }; done)"; : "${T:?tdd-artifact not found: set TDD_ARTIFACT_HOME to the folder that holds its SKILL.md}"                  # this skill's folder, as SKILL.md sets it
 python3 -I "$T/scripts/build_tdd.py" <source.md> build      # "N schema tables", no "has no schema" warning
 cd "$T/app"
 bun harness/render.tsx <packet>/build <scratch>/schema-harness.html [--extra ../templates/schema.template.json]
